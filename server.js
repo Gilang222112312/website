@@ -16,7 +16,7 @@ app.use(express.static(__dirname));
 
 // Route for root path
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'login.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Function to login using Puppeteer and fetch cookies
